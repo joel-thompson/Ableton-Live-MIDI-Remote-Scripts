@@ -24,14 +24,14 @@ from MIDI_Map import *
 #MIDI_CC_TYPE = 1
 #MIDI_PB_TYPE = 2
 
-class YourControllerName(ControlSurface):
-    __doc__ = " Script for YourControllerName in APC emulation mode "
+class MIDI_Fighter_Twister(ControlSurface):
+    __doc__ = " Script for MIDI_Fighter_Twister in APC emulation mode "
 
     _active_instances = []
     def _combine_active_instances():
         track_offset = 0
         scene_offset = 0
-        for instance in YourControllerName._active_instances:
+        for instance in MIDI_Fighter_Twister._active_instances:
             instance._activate_combination_mode(track_offset, scene_offset)
             track_offset += instance._session.width()
     _combine_active_instances = staticmethod(_combine_active_instances)
@@ -41,6 +41,7 @@ class YourControllerName(ControlSurface):
         #self.set_suppress_rebuild_requests(True)
         with self.component_guard():
             self._note_map = []
+            self._side_buttons = []
             self._ctrl_map = []
             self._load_MIDI_map()
             self._session = None
@@ -70,15 +71,15 @@ class YourControllerName(ControlSurface):
 
 
     def _do_combine(self):
-        if self not in YourControllerName._active_instances:
-            YourControllerName._active_instances.append(self)
-            YourControllerName._combine_active_instances()
+        if self not in MIDI_Fighter_Twister._active_instances:
+            MIDI_Fighter_Twister._active_instances.append(self)
+            MIDI_Fighter_Twister._combine_active_instances()
 
 
     def _do_uncombine(self):
-        if ((self in YourControllerName._active_instances) and YourControllerName._active_instances.remove(self)):
+        if ((self in MIDI_Fighter_Twister._active_instances) and MIDI_Fighter_Twister._active_instances.remove(self)):
             self._session.unlink()
-            YourControllerName._combine_active_instances()
+            MIDI_Fighter_Twister._combine_active_instances()
 
 
     def _activate_combination_mode(self, track_offset, scene_offset):
@@ -91,25 +92,28 @@ class YourControllerName(ControlSurface):
 
     def _setup_session_control(self):
         is_momentary = True
-        self._session = SpecialSessionComponent(8, 8)
+        self._session = SpecialSessionComponent(3, 3)
         self._session.name = 'Session_Control'
-        self._session.set_track_bank_buttons(self._note_map[SESSIONRIGHT], self._note_map[SESSIONLEFT])
-        self._session.set_scene_bank_buttons(self._note_map[SESSIONDOWN], self._note_map[SESSIONUP])
+
+        # using the side buttons for the red box nav
+        self._session.set_track_bank_buttons(self._side_buttons[SESSIONRIGHT], self._side_buttons[SESSIONLEFT])
+        self._session.set_scene_bank_buttons(self._side_buttons[SESSIONDOWN], self._side_buttons[SESSIONUP])
+
         self._session.set_select_buttons(self._note_map[SCENEDN], self._note_map[SCENEUP])
-        self._scene_launch_buttons = [self._note_map[SCENELAUNCH[index]] for index in range(8) ]
-        self._track_stop_buttons = [self._note_map[TRACKSTOP[index]] for index in range(8) ]
+        self._scene_launch_buttons = [self._note_map[SCENELAUNCH[index]] for index in range(3) ]
+        self._track_stop_buttons = [self._note_map[TRACKSTOP[index]] for index in range(3) ]
         self._session.set_stop_all_clips_button(self._note_map[STOPALLCLIPS])
         self._session.set_stop_track_clip_buttons(tuple(self._track_stop_buttons))
         self._session.selected_scene().name = 'Selected_Scene'
         self._session.selected_scene().set_launch_button(self._note_map[SELSCENELAUNCH])
         self._session.set_slot_launch_button(self._note_map[SELCLIPLAUNCH])
-        for scene_index in range(8):
+        for scene_index in range(3):
             scene = self._session.scene(scene_index)
             scene.name = 'Scene_' + str(scene_index)
             button_row = []
             scene.set_launch_button(self._scene_launch_buttons[scene_index])
             scene.set_triggered_value(2)
-            for track_index in range(8):
+            for track_index in range(3):
                 button = self._note_map[CLIPNOTEMAP[scene_index][track_index]]
                 button_row.append(button)
                 clip_slot = scene.clip_slot(track_index)
@@ -121,7 +125,7 @@ class YourControllerName(ControlSurface):
 
     def _setup_mixer_control(self):
         is_momentary = True
-        self._mixer = SpecialMixerComponent(8)
+        self._mixer = SpecialMixerComponent(3)
         self._mixer.name = 'Mixer'
         self._mixer.master_strip().name = 'Master_Channel_Strip'
         self._mixer.master_strip().set_select_button(self._note_map[MASTERSEL])
@@ -130,7 +134,7 @@ class YourControllerName(ControlSurface):
         self._mixer.set_crossfader_control(self._ctrl_map[CROSSFADER])
         self._mixer.set_prehear_volume_control(self._ctrl_map[CUELEVEL])
         self._mixer.master_strip().set_volume_control(self._ctrl_map[MASTERVOLUME])
-        for track in range(8):
+        for track in range(3):
             strip = self._mixer.channel_strip(track)
             strip.name = 'Channel_Strip_' + str(track)
             strip.set_arm_button(self._note_map[TRACKREC[track]])
@@ -213,6 +217,17 @@ class YourControllerName(ControlSurface):
             button = ButtonElement(is_momentary, MESSAGETYPE, BUTTONCHANNEL, note)
             button.name = 'Note_' + str(note)
             self._note_map.append(button)
+
+        # add side buttons as channel 4
+        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, TOP_LEFT_SIDE_BTN_VAL)
+        self._side_buttons.append(button)
+        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, BTM_LEFT_SIDE_BTN_VAL)
+        self._side_buttons.append(button)
+        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, TOP_RITE_SIDE_BTN_VAL)
+        self._side_buttons.append(button)
+        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, BTM_RITE_SIDE_BTN_VAL)
+        self._side_buttons.append(button)
+
         self._note_map.append(None) #add None to the end of the list, selectable with [-1]
         if MESSAGETYPE == MIDI_CC_TYPE and BUTTONCHANNEL == SLIDERCHANNEL:
             for ctrl in range(128):

@@ -1,6 +1,22 @@
 # Brought to you by st4rchild with the help of Hanz Petrov @ http://remotescripts.blogspot.com
 # Avoid using tabs for indentation, use spaces.
 
+### SIDE BUTTONS CONFIG
+
+SIDE_BUTTONS_CHANNEL = 3
+
+# midi values for the buttons
+TOP_LEFT_SIDE_BTN_VAL = 8
+BTM_LEFT_SIDE_BTN_VAL = 10
+TOP_RITE_SIDE_BTN_VAL = 11
+BTM_RITE_SIDE_BTN_VAL = 13
+
+# order the buttons are added in MIDI_Fighter_Twister.py
+TOP_LEFT_SIDE_BTN = 0
+BTM_LEFT_SIDE_BTN = 1
+TOP_RITE_SIDE_BTN = 2
+BTM_RITE_SIDE_BTN = 3
+
 # Combination Mode offsets
 # ------------------------
 
@@ -12,8 +28,8 @@ SCENE_OFFSET = 0 #offset from the top of linked session origin (no auto-join)
 # Valid Note/CC assignments are 0 to 127, or -1 for NONE
 # Duplicate assignments are permitted
 
-BUTTONCHANNEL = 0 #Channel assignment for all mapped buttons/pads; valid range is 0 to 15 ; 0=1, 1=2 etc.
-MESSAGETYPE = 0 #Message type for buttons/pads; set to 0 for MIDI Notes, 1 for CCs.
+BUTTONCHANNEL = 1 #Channel assignment for all mapped buttons/pads; valid range is 0 to 15 ; 0=1, 1=2 etc.
+MESSAGETYPE = 1 #Message type for buttons/pads; set to 0 for MIDI Notes, 1 for CCs.
         #When using CCs for buttons/pads, set BUTTONCHANNEL and SLIDERCHANNEL to different values.
 
 # General
@@ -56,10 +72,13 @@ SEEKFWD = -1 #Seek forward
 SEEKRWD = -1 #Seek rewind
 
 # Session Navigation (aka "red box")
-SESSIONLEFT = -1 #Session left
-SESSIONRIGHT = -1 #Session right
-SESSIONUP = -1 #Session up
-SESSIONDOWN = -1 #Session down
+
+# defined at the top
+SESSIONLEFT = TOP_LEFT_SIDE_BTN #Session left
+SESSIONRIGHT = BTM_LEFT_SIDE_BTN #Session right
+SESSIONUP = TOP_RITE_SIDE_BTN #Session up
+SESSIONDOWN = BTM_RITE_SIDE_BTN #Session down
+
 ZOOMUP = -1 #Session Zoom up
 ZOOMDOWN = -1 #Session Zoom down
 ZOOMLEFT = -1 #Session Zoom left
@@ -75,14 +94,9 @@ SCENEDN = -1 #Scene up
 
 # Scene Launch
 SELSCENELAUNCH = -1 #Selected scene launch
-SCENELAUNCH = (-1, #Scene 1 Launch
-               -1, #Scene 2
-               -1, #Scene 3
-               -1, #Scene 4
-               -1, #Scene 5
-               -1, #Scene 6
-               -1, #Scene 7
-               -1, #Scene 8
+SCENELAUNCH = (3, #Scene 1 Launch
+               7, #Scene 2
+               11, #Scene 3
                )
 
 # Clip Launch / Stop
@@ -91,14 +105,9 @@ STOPALLCLIPS = -1 #Stop all clips
 
 # 8x8 Matrix note assignments
 # Track no.:     1   2   3   4   5   6   7   8
-CLIPNOTEMAP = ((-1, -1, -1, -1, -1, -1, -1, -1), #Row 1
-               (-1, -1, -1, -1, -1, -1, -1, -1), #Row 2
-               (-1, -1, -1, -1, -1, -1, -1, -1), #Row 3
-               (-1, -1, -1, -1, -1, -1, -1, -1), #Row 4
-               (-1, -1, -1, -1, -1, -1, -1, -1), #Row 5
-               (-1, -1, -1, -1, -1, -1, -1, -1), #Row 6
-               (-1, -1, -1, -1, -1, -1, -1, -1), #Row 7
-               (-1, -1, -1, -1, -1, -1, -1, -1), #Row 8
+CLIPNOTEMAP = ((0, 1, 2), #Row 1
+               (4, 5, 6), #Row 2
+               (8, 9, 10), #Row 3
                )
 
 # Track Control
@@ -106,47 +115,22 @@ MASTERSEL = -1 #Master track select
 TRACKSTOP = (-1, #Track 1 Clip Stop
              -1, #Track 2
              -1, #Track 3
-             -1, #Track 4
-             -1, #Track 5
-             -1, #Track 6
-             -1, #Track 7
-             -1, #Track 8
              )
 TRACKSEL = (-1, #Track 1 Select
             -1, #Track 2
             -1, #Track 3
-            -1, #Track 4
-            -1, #Track 5
-            -1, #Track 6
-            -1, #Track 7
-            -1, #Track 8
             )
-TRACKMUTE = (-1, #Track 1 On/Off
-             -1, #Track 2
-             -1, #Track 3
-             -1, #Track 4
-             -1, #Track 5
-             -1, #Track 6
-             -1, #Track 7
-             -1, #Track 8
+TRACKMUTE = (12, #Track 1 On/Off
+             13, #Track 2
+             14, #Track 3
              )
 TRACKSOLO = (-1, #Track 1 Solo
              -1, #Track 2
              -1, #Track 3
-             -1, #Track 4
-             -1, #Track 5
-             -1, #Track 6
-             -1, #Track 7
-             -1, #Track 8
              )
 TRACKREC = (-1, #Track 1 Record
             -1, #Track 2
             -1, #Track 3
-            -1, #Track 4
-            -1, #Track 5
-            -1, #Track 6
-            -1, #Track 7
-            -1, #Track 8
             )
 
 
@@ -166,64 +150,39 @@ DRUM_PADS = (-1, -1, -1, -1, # MIDI note numbers for 4 x 4 Drum Rack
 
 SLIDERCHANNEL = 0 #Channel assignment for all mapped CCs; valid range is 0 to 15
 TEMPO_TOP = 180.0 # Upper limit of tempo control in BPM (max is 999)
-TEMPO_BOTTOM = 100.0 # Lower limit of tempo control in BPM (min is 0)
+TEMPO_BOTTOM = 80.0 # Lower limit of tempo control in BPM (min is 0)
 
 TEMPOCONTROL = -1 #Tempo control CC assignment; control range is set above
 MASTERVOLUME = -1 #Master track volume
 CUELEVEL = -1 #Cue level control
 CROSSFADER = -1 #Crossfader control
 
-TRACKVOL = (-1, #Track 1 Volume
-            -1, #Track 2
-            -1, #Track 3
-            -1, #Track 4
-            -1, #Track 5
-            -1, #Track 6
-            -1, #Track 7
-            -1, #Track 8
+TRACKVOL = (12, #Track 1 Volume
+            13, #Track 2
+            14, #Track 3
             )
-TRACKPAN = (-1, #Track 1 Pan
-            -1, #Track 2
-            -1, #Track 3
-            -1, #Track 4
-            -1, #Track 5
-            -1, #Track 6
-            -1, #Track 7
-            -1, #Track 8
+TRACKPAN = (8, #Track 1 Pan
+            9, #Track 2
+            10, #Track 3
             )
-TRACKSENDA = (-1, #Track 1 Send A
-              -1, #Track 2
-              -1, #Track 3
-              -1, #Track 4
-              -1, #Track 5
-              -1, #Track 6
-              -1, #Track 7
-              -1, #Track 8
+TRACKSENDA = (4, #Track 1 Send A
+              5, #Track 2
+              6, #Track 3
               )
-TRACKSENDB = (-1, #Track 1 Send B
-              -1, #Track 2
-              -1, #Track 3
-              -1, #Track 4
-              -1, #Track 5
-              -1, #Track 6
-              -1, #Track 7
-              -1, #Track 8
+TRACKSENDB = (0, #Track 1 Send B
+              1, #Track 2
+              2, #Track 3
               )
 TRACKSENDC = (-1, #Track 1 Send C
               -1, #Track 2
               -1, #Track 3
-              -1, #Track 4
-              -1, #Track 5
-              -1, #Track 6
-              -1, #Track 7
-              -1, #Track 8
               )
-PARAMCONTROL = (-1, #Param 1 #All 8 params must be assigned to positive values in order for param control to work
-                -1, #Param 2
-                -1, #Param 3
-                -1, #Param 4
-                -1, #Param 5
-                -1, #Param 6
-                -1, #Param 7
-                -1, #Param 8
+PARAMCONTROL = (24, #Param 1 #All 8 params must be assigned to positive values in order for param control to work
+                25, #Param 2
+                26, #Param 3
+                27, #Param 4
+                28, #Param 5
+                29, #Param 6
+                30, #Param 7
+                31, #Param 8
                 )
