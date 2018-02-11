@@ -51,12 +51,12 @@ DETAILVIEW = -1 #Detail view switch
 CLIPTRACKVIEW = -1 #Clip/Track view switch
 
 # Device Control
-DEVICELOCK = -1 #Device Lock (lock "blue hand")
-DEVICEONOFF = -1 #Device on/off
-DEVICENAVLEFT = -1 #Device nav left
-DEVICENAVRIGHT = -1 #Device nav right
-DEVICEBANKNAVLEFT = -1 #Device bank nav left
-DEVICEBANKNAVRIGHT = -1 #Device bank nav right
+DEVICELOCK = 24 #Device Lock (lock "blue hand")
+DEVICEONOFF = 27 #Device on/off
+DEVICENAVLEFT = 28 #Device nav left
+DEVICENAVRIGHT = 29 #Device nav right
+DEVICEBANKNAVLEFT = 30 #Device bank nav left
+DEVICEBANKNAVRIGHT = 31 #Device bank nav right
 DEVICEBANK = (-1, #Bank 1 #All 8 banks must be assigned to positive values in order for bank selection to work
               -1, #Bank 2
               -1, #Bank 3
