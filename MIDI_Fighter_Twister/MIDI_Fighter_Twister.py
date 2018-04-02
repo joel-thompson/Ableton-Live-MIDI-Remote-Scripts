@@ -92,22 +92,25 @@ class MIDI_Fighter_Twister(ControlSurface):
 
     def _setup_session_control(self):
         is_momentary = True
-        self._session = SpecialSessionComponent(3, 3)
+        self._session = SpecialSessionComponent(3, 2)
         self._session.name = 'Session_Control'
 
-        # using the side buttons for the red box nav
-        self._session.set_track_bank_buttons(self._side_buttons[SESSIONRIGHT], self._side_buttons[SESSIONLEFT])
-        self._session.set_scene_bank_buttons(self._side_buttons[SESSIONDOWN], self._side_buttons[SESSIONUP])
+        # # using the side buttons for the red box nav
+        # self._session.set_track_bank_buttons(self._side_buttons[SESSIONRIGHT], self._side_buttons[SESSIONLEFT])
+        # self._session.set_scene_bank_buttons(self._side_buttons[SESSIONDOWN], self._side_buttons[SESSIONUP])
+
+        self._session.set_track_bank_buttons(self._note_map[SESSIONRIGHT], self._note_map[SESSIONLEFT])
+        self._session.set_scene_bank_buttons(self._note_map[SESSIONDOWN], self._note_map[SESSIONUP])
 
         self._session.set_select_buttons(self._note_map[SCENEDN], self._note_map[SCENEUP])
-        self._scene_launch_buttons = [self._note_map[SCENELAUNCH[index]] for index in range(3) ]
+        self._scene_launch_buttons = [self._note_map[SCENELAUNCH[index]] for index in range(2) ]
         self._track_stop_buttons = [self._note_map[TRACKSTOP[index]] for index in range(3) ]
         self._session.set_stop_all_clips_button(self._note_map[STOPALLCLIPS])
         self._session.set_stop_track_clip_buttons(tuple(self._track_stop_buttons))
         self._session.selected_scene().name = 'Selected_Scene'
         self._session.selected_scene().set_launch_button(self._note_map[SELSCENELAUNCH])
         self._session.set_slot_launch_button(self._note_map[SELCLIPLAUNCH])
-        for scene_index in range(3):
+        for scene_index in range(2):
             scene = self._session.scene(scene_index)
             scene.name = 'Scene_' + str(scene_index)
             button_row = []
@@ -219,14 +222,14 @@ class MIDI_Fighter_Twister(ControlSurface):
             self._note_map.append(button)
 
         # add side buttons as channel 4
-        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, TOP_LEFT_SIDE_BTN_VAL)
-        self._side_buttons.append(button)
-        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, BTM_LEFT_SIDE_BTN_VAL)
-        self._side_buttons.append(button)
-        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, TOP_RITE_SIDE_BTN_VAL)
-        self._side_buttons.append(button)
-        button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, BTM_RITE_SIDE_BTN_VAL)
-        self._side_buttons.append(button)
+        # button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, TOP_LEFT_SIDE_BTN_VAL)
+        # self._side_buttons.append(button)
+        # button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, BTM_LEFT_SIDE_BTN_VAL)
+        # self._side_buttons.append(button)
+        # button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, TOP_RITE_SIDE_BTN_VAL)
+        # self._side_buttons.append(button)
+        # button = ButtonElement(is_momentary, MESSAGETYPE, SIDE_BUTTONS_CHANNEL, BTM_RITE_SIDE_BTN_VAL)
+        # self._side_buttons.append(button)
 
         self._note_map.append(None) #add None to the end of the list, selectable with [-1]
         if MESSAGETYPE == MIDI_CC_TYPE and BUTTONCHANNEL == SLIDERCHANNEL:

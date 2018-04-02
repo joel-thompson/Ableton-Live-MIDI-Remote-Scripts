@@ -3,19 +3,19 @@
 
 ### SIDE BUTTONS CONFIG
 
-SIDE_BUTTONS_CHANNEL = 3
-
-# midi values for the buttons
-TOP_LEFT_SIDE_BTN_VAL = 8
-BTM_LEFT_SIDE_BTN_VAL = 10
-TOP_RITE_SIDE_BTN_VAL = 11
-BTM_RITE_SIDE_BTN_VAL = 13
-
-# order the buttons are added in MIDI_Fighter_Twister.py
-TOP_LEFT_SIDE_BTN = 0
-BTM_LEFT_SIDE_BTN = 1
-TOP_RITE_SIDE_BTN = 2
-BTM_RITE_SIDE_BTN = 3
+# SIDE_BUTTONS_CHANNEL = 3
+#
+# # midi values for the buttons
+# TOP_LEFT_SIDE_BTN_VAL = 8
+# BTM_LEFT_SIDE_BTN_VAL = 10
+# TOP_RITE_SIDE_BTN_VAL = 11
+# BTM_RITE_SIDE_BTN_VAL = 13
+#
+# # order the buttons are added in MIDI_Fighter_Twister.py
+# TOP_LEFT_SIDE_BTN = 0
+# BTM_LEFT_SIDE_BTN = 1
+# TOP_RITE_SIDE_BTN = 2
+# BTM_RITE_SIDE_BTN = 3
 
 # Combination Mode offsets
 # ------------------------
@@ -51,12 +51,12 @@ DETAILVIEW = -1 #Detail view switch
 CLIPTRACKVIEW = -1 #Clip/Track view switch
 
 # Device Control
-DEVICELOCK = 24 #Device Lock (lock "blue hand")
-DEVICEONOFF = 27 #Device on/off
-DEVICENAVLEFT = 28 #Device nav left
-DEVICENAVRIGHT = 29 #Device nav right
-DEVICEBANKNAVLEFT = 30 #Device bank nav left
-DEVICEBANKNAVRIGHT = 31 #Device bank nav right
+DEVICELOCK = 16 #Device Lock (lock "blue hand")
+DEVICEONOFF = -1 #Device on/off
+DEVICENAVLEFT = -1 #Device nav left
+DEVICENAVRIGHT = -1 #Device nav right
+DEVICEBANKNAVLEFT = -1 #Device bank nav left
+DEVICEBANKNAVRIGHT = -1 #Device bank nav right
 DEVICEBANK = (-1, #Bank 1 #All 8 banks must be assigned to positive values in order for bank selection to work
               -1, #Bank 2
               -1, #Bank 3
@@ -73,11 +73,10 @@ SEEKRWD = -1 #Seek rewind
 
 # Session Navigation (aka "red box")
 
-# defined at the top
-SESSIONLEFT = TOP_LEFT_SIDE_BTN #Session left
-SESSIONRIGHT = BTM_LEFT_SIDE_BTN #Session right
-SESSIONUP = TOP_RITE_SIDE_BTN #Session up
-SESSIONDOWN = BTM_RITE_SIDE_BTN #Session down
+SESSIONLEFT = 8
+SESSIONRIGHT = 9
+SESSIONUP = 10
+SESSIONDOWN = 11
 
 ZOOMUP = -1 #Session Zoom up
 ZOOMDOWN = -1 #Session Zoom down
@@ -96,7 +95,6 @@ SCENEDN = -1 #Scene up
 SELSCENELAUNCH = -1 #Selected scene launch
 SCENELAUNCH = (3, #Scene 1 Launch
                7, #Scene 2
-               11, #Scene 3
                )
 
 # Clip Launch / Stop
@@ -107,7 +105,6 @@ STOPALLCLIPS = -1 #Stop all clips
 # Track no.:     1   2   3   4   5   6   7   8
 CLIPNOTEMAP = ((0, 1, 2), #Row 1
                (4, 5, 6), #Row 2
-               (8, 9, 10), #Row 3
                )
 
 # Track Control
@@ -165,24 +162,28 @@ TRACKPAN = (8, #Track 1 Pan
             9, #Track 2
             10, #Track 3
             )
-TRACKSENDA = (4, #Track 1 Send A
-              5, #Track 2
-              6, #Track 3
-              )
-TRACKSENDB = (0, #Track 1 Send B
+# TRACKSENDA = (4, #Track 1 Send A
+#               5, #Track 2
+#               6, #Track 3
+#               )
+TRACKSENDA = (0, #Track 1 Send B
               1, #Track 2
               2, #Track 3
+              )
+TRACKSENDB = (4, #Track 1 Send A
+              5, #Track 2
+              6, #Track 3
               )
 TRACKSENDC = (-1, #Track 1 Send C
               -1, #Track 2
               -1, #Track 3
               )
-PARAMCONTROL = (24, #Param 1 #All 8 params must be assigned to positive values in order for param control to work
-                25, #Param 2
-                26, #Param 3
-                27, #Param 4
-                28, #Param 5
-                29, #Param 6
-                30, #Param 7
-                31, #Param 8
+PARAMCONTROL = (16, #Param 1 #All 8 params must be assigned to positive values in order for param control to work
+                17, #Param 2
+                18, #Param 3
+                19, #Param 4
+                20, #Param 5
+                21, #Param 6
+                22, #Param 7
+                23, #Param 8
                 )
