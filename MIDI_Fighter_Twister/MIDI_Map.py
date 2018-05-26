@@ -117,17 +117,17 @@ TRACKSEL = (-1, #Track 1 Select
             -1, #Track 2
             -1, #Track 3
             )
-TRACKMUTE = (12, #Track 1 On/Off
-             13, #Track 2
-             14, #Track 3
+TRACKMUTE = (-1, #Track 1 On/Off
+             -1, #Track 2
+             -1, #Track 3
              )
 TRACKSOLO = (-1, #Track 1 Solo
              -1, #Track 2
              -1, #Track 3
              )
-TRACKREC = (-1, #Track 1 Record
-            -1, #Track 2
-            -1, #Track 3
+TRACKREC = (12, #Track 1 Record
+            13, #Track 2
+            14, #Track 3
             )
 
 
